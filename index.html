@@ -96,7 +96,7 @@
             socket = new WebSocket("wss://art.math.computer");
             appendToTerminal("Note: this is an experimental terminal web emulator.\nYou are advised to use Terminal + wscat for optimal UX:");
             appendToTerminal("$ npm i -g wscat # https://github.com/websockets/wscat\n$ wscat -c wss://art.math.computer");
-            appendToTerminal("Connecting to server...");
+            appendToTerminal("Connecting to server... (this can take a minute or so)");
             socket.onopen = () => appendToTerminal("Connected to WebSocket server.")
             socket.onmessage = (event) => appendToTerminal(event.data);
             socket.onerror = (error) => appendToTerminal("Error: " + error.message);
