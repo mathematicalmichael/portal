@@ -94,9 +94,12 @@
         // Connect to WebSocket server
         function connect() {
             socket = new WebSocket("wss://art.math.computer");
+            appendToTerminal("Note: this is an experimental terminal web emulator.");
+            appendToTerminal("You are advised to use Terminal + wscat for optimal UX:");
+            appendToTerminal("$ npm i -g wscat # https://github.com/websockets/wscat");
+            appendToTerminal("$ wscat -c wss://art.math.computer");
             appendToTerminal("Connecting to server...");
-
-            socket.onopen = () => appendToTerminal("Connected to WebSocket server. Note: unstable web emulator. \nYou are advised to use Terminal + wscat for optimal UX:\nhttps://github.com/websockets/wscat ($ npm i -g wscat)\n$ wscat -c wss://art.math.computer");
+            socket.onopen = () => appendToTerminal("Connected to WebSocket server.")
             socket.onmessage = (event) => appendToTerminal(event.data);
             socket.onerror = (error) => appendToTerminal("Error: " + error.message);
             socket.onclose = () => appendToTerminal("Connection closed. Refresh page to reconnect.");
