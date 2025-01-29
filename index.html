@@ -90,7 +90,25 @@
         const terminal = document.getElementById('terminal');
         const commandInput = document.getElementById('command');
         let socket;
+        // Add these event listeners at the start of the script
+        document.body.addEventListener('keydown', (e) => {
+            // Don't capture if user is selecting text (getSelection().toString() would be non-empty)
+            // Also don't capture if user is already focused on the input
+            // And don't capture if it's a keyboard shortcut (e.g., Ctrl+C for copy)
+            if (!window.getSelection().toString() &&
+                document.activeElement !== commandInput &&
+                !e.ctrlKey && !e.metaKey) {
+                commandInput.focus();
+            }
+        });
 
+        // Prevent the focus from being lost when clicking the terminal
+        terminal.addEventListener('click', (e) => {
+            // Only focus if we're not selecting text
+            if (!window.getSelection().toString()) {
+                commandInput.focus();
+            }
+        });
         // Connect to WebSocket server
         function connect() {
             socket = new WebSocket("wss://art.math.computer");
